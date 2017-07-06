@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}	
+	{% load mptt_tags %}
+<ul>
+    {% recursetree nodes %}
+        <li>
+            {{ node.name }}|{{ node.earnings }}|{{ node.total }}
+            <a href="{% url 'company_edit' pk=node.pk %}">
+	        	<i class="glyphicon glyphicon-pencil"></i>
+	        </a>|
+	        <a href="{% url 'company_remove' pk=node.pk %}">
+	        	<i class="glyphicon glyphicon-trash"></i>
+	        </a>
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+{% endblock %}
+
