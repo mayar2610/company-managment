@@ -38,18 +38,23 @@ def company_remove(request, pk):
 	return redirect('company_list')
 
 def company_list(request):
-	nodes = list(Company.objects.all())
+	nodes = Company.objects.all()
+	descendants_list = []
 
 	for node in nodes:
-		total = 0
-		if node.get_ancestors() is True:
-			children = node.get_ancestors()
-			for child in children:
-				total += child.earnings
-			total += node.earnings
+		if node.is_leaf_node() is False:
+			descendants_list = list(node.get_descendants())
+			node.total = 0
+
+			for i in descendants_list:
+				node.total += i.earnings
+			node.total += node.earnings
 		else:
-			total = None
-		
+			node.total = None
+
+		node.save()
+
 	return render(request, 'company_list.html', {'nodes': nodes})
+
 	
 

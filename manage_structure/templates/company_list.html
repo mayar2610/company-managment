@@ -4,7 +4,7 @@
 <ul>
     {% recursetree nodes %}
         <li>
-            {{ node.name }}|{{ node.earnings }}|{{ node.total }}
+            {{ node.name }}|{{ node.earnings }}|{% if node.total != None %}{{ node.total }}{% endif %}
             <a href="{% url 'company_edit' pk=node.pk %}">
 	        	<i class="glyphicon glyphicon-pencil"></i>
 	        </a>|
