@@ -10,4 +10,4 @@ For using this project you need:
  6. $  pip install django-mptt
  7. $ python manage.py migrate
  8. $ python manage.py runserver
- 9. go to http://localhost:8000/company_list/
+ 9. go to http://localhost:8000/
